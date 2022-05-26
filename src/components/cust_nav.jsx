@@ -54,12 +54,12 @@ const Cust_nav = () => {
           (
           <div>
             <Nav.Link href="#action1" id='agzoneNavLink'>Home</Nav.Link>
-        <Nav.Link href="#action2" id='agzoneNavLink'>Products</Nav.Link>
-        <Nav.Link href="#action3" id='agzoneNavLink'>Cart</Nav.Link>
-        <Nav.Link href="#action4" id='agzoneNavLink'>Purchase History</Nav.Link>
+        <Nav.Link href="products" id='agzoneNavLink'>Products</Nav.Link>
+        <Nav.Link href="cart" id='agzoneNavLink'>Cart</Nav.Link>
+        <Nav.Link href="purchaseHistry" id='agzoneNavLink'>Purchase History</Nav.Link>
         <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-          <NavDropdown.Item href="">create Item</NavDropdown.Item>
-          <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
+          <NavDropdown.Item href="">Item</NavDropdown.Item>
+          <NavDropdown.Item href="create_product">Another action</NavDropdown.Item>
           <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
           <NavDropdown.Divider />
           <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>

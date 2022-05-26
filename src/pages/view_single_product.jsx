@@ -3,12 +3,15 @@ import { Container,Row,Col, Card, ButtonGroup, Button, Form } from 'react-bootst
 import CustomerNav from '../components/cust_nav';
 import SampleDress from '../static/images/dress.jpg';
 import { useLocation } from 'react-router-dom';
-import { addToCart } from '../services/products.services';
+import { addToCart,updateProduct } from '../services/products.services';
+import authService from '../services/auth.services';
 
 const View_single_product = () => {
   const location = useLocation();
 
   const [orderQuantity, setOrderQuantity] = useState(0)
+  const logged_user= authService.getCurrentUser();
+  const logged_user_role = logged_user.role
 
 
   const addToCartFunc = (prodid) => {
@@ -19,6 +22,24 @@ const View_single_product = () => {
     }
 
     addToCart(add_cart_data).then((res) =>{
+      console.log("Result after adding to cart", res)
+    }
+    ).catch((e)=>{
+      console.log("error while adding the product to cart!")
+    })
+
+
+
+  }
+
+  const updateProdFunc = (prodid) => {
+    
+    const update_data = {
+      itemId : prodid,
+      quantity :orderQuantity
+    }
+
+    updateProduct(prodid,update_data).then((res) =>{
       console.log("Result after adding to cart", res)
     }
     ).catch((e)=>{
@@ -67,6 +88,23 @@ const View_single_product = () => {
 
 <div className="buttonWrapper">
   <Button variant="success" id='add_to_cart_from_single_prod_btn' onClick={()=>{addToCartFunc(location.state.id)}}>Add to cart</Button>
+
+  <br />
+
+
+
+  {logged_user_role === 'FARMER' ? (
+          <>
+  <Button variant="warning text-dark" id='add_to_cart_from_single_prod_btn' onClick={()=>{updateProdFunc(location.state.id)}}>update</Button>
+          
+        
+          
+          </>):
+          (
+          <div>
+          
+          </div>
+        )}
                 
             </div>
             
@@ -76,6 +114,12 @@ const View_single_product = () => {
         </Container>
 
     </div>
+
+
+
+
+
+
   )
 }
 

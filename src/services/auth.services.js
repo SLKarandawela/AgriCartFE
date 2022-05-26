@@ -13,10 +13,7 @@ const signUp = (userName,password,firstName,email,phone,address) => {
         address
     })
     .then((res) => {
-        if(res.data.jwtToken){
-            localStorage.setItem("user", JSON.stringify(res.data));
-        }
-
+        
         return res.data
     });
 };
@@ -35,6 +32,7 @@ const login = (userName,password ) => {
         if(res.data.jwtToken){
             localStorage.setItem("user", JSON.stringify(res.data));
         }
+        
 
         
 

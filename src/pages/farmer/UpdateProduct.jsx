@@ -1,11 +1,12 @@
-import React,{ useState} from 'react';
-import CustomerNav from '../../components/cust_nav';
+import React, {useState} from 'react'
 import { Container,Form,Button, Row,Col } from 'react-bootstrap';
-import { addProduct } from '../../services/products.services';
-import AddItemImage from '../../static/images/add_item.png'
+import CustomerNav from '../../components/cust_nav';
+import { updateProduct } from '../../services/products.services';
+import AddItemImage from '../../static/images/add_item.png';
 
-const Create_product = () => {
-  const [itemName, setItemName] = useState('')
+
+const UpdateProduct = () => {
+    const [itemName, setItemName] = useState('')
     const [itemDescription, setItemDescription] = useState('')
     const [itemPrice, setItemPrice] = useState(0)
     const [itemQty, setItemQty] = useState(0)
@@ -13,38 +14,38 @@ const Create_product = () => {
     const [itemSubCategory, setItemSubCategory] = useState('')
 
 
-    
-
-    const addProductFunc = (e) =>{
-      e.preventDefault()
-      let prsedSubCategory = parseInt(itemSubCategory)
-      console.log("parsed cat", prsedSubCategory)
-      const data = {
-          itemName: itemName,
-          price: itemPrice,
-          description: itemDescription,
-          quantity: itemQty,
-          itemType:itemCategory,
-          subCategoryId:prsedSubCategory
-      }
-
-      
-
-
-      addProduct(data).then((res)=>{
-          console.log("res after adding the product", res)
-      }).catch((e)=>{
-          alert("error while adding the product!")
-      })
-  }
-
+    const updateProductFunc = (e) =>{
+        e.preventDefault()
+        let prsedSubCategory = parseInt(itemSubCategory)
+        console.log("parsed cat", prsedSubCategory)
+        const data = {
+            itemName: itemName,
+            price: itemPrice,
+            description: itemDescription,
+            quantity: itemQty,
+            itemType:itemCategory,
+            subCategoryId:prsedSubCategory
+        }
+  
+        
+  
+  
+        updateProduct(data).then((res)=>{
+            console.log("res after adding the product", res)
+        }).catch((e)=>{
+            alert("error while adding the product!")
+        })
+    }
+  
 
 
 
 
   return (
     <div>
-        <CustomerNav />
+
+
+<CustomerNav />
         <Container id='create_product_container'>
           <Row>
             <Col md={6} className='left_column'>
@@ -110,7 +111,7 @@ const Create_product = () => {
 
 
 <div className="buttonWrapper">
-<Button variant="primary" type="submit" onClick={(e)=>{addProductFunc(e)}} className='global_button'>
+<Button variant="primary" type="submit" onClick={(e)=>{updateProductFunc(e)}} className='global_button'>
 <i class="fa-solid fa-plus"></i> Add Product
 </Button>
 </div>
@@ -121,8 +122,16 @@ const Create_product = () => {
           </Row>
         
         </Container>
+
+
+
+
+
+
+
+
     </div>
   )
 }
 
-export default Create_product
+export default UpdateProduct

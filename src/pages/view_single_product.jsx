@@ -1,10 +1,37 @@
-import React from 'react';
-import { Container,Row,Col, Card, ButtonGroup, Button } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Container,Row,Col, Card, ButtonGroup, Button, Form } from 'react-bootstrap';
 import CustomerNav from '../components/cust_nav';
 import SampleDress from '../static/images/dress.jpg';
+import { useLocation } from 'react-router-dom';
+import { addToCart } from '../services/products.services';
+
+const View_single_product = () => {
+  const location = useLocation();
+
+  const [orderQuantity, setOrderQuantity] = useState(0)
 
 
-const view_single_product = () => {
+  const addToCartFunc = (prodid) => {
+    
+    const add_cart_data = {
+      itemId : prodid,
+      quantity :orderQuantity
+    }
+
+    addToCart(add_cart_data).then((res) =>{
+      console.log("Result after adding to cart", res)
+    }
+    ).catch((e)=>{
+      console.log("error while adding the product to cart!")
+    })
+
+
+
+  }
+
+
+
+
   return (
     <div>
         <CustomerNav></CustomerNav>
@@ -15,25 +42,31 @@ const view_single_product = () => {
             <Card.Img variant="left" src={SampleDress} className='single_product_image' />
             </Col>
             <Col className='single_product_detail_column'>
-            <h1 className='product_name_header'>This is product name</h1>
+            <h1 className='product_name_header'>{location.state.itemName}</h1>
             <br></br>
-            <p>Product Description</p>
+            <p>{location.state.description}</p>
 
             <br />
 
-            <h2 className='prodecut_price_header'>LKR:4000.00</h2>
+            <h2 className='prodecut_price_header'>LKR:{location.state.price}.00</h2>
+
+            <h2 className='prodecut_price_header'>in Stock - {location.state.quantity} items</h2>
+
+
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+    <Form.Label className='form_label_styler'>Order Quantity</Form.Label>
+    <Form.Control type='number' placeholder="Enter Permanent Address" value={orderQuantity} onChange={(e)=>{setOrderQuantity(e.target.value)}}/>
+  </Form.Group>
+
+
+
 
             
 
-            <ButtonGroup aria-label="Basic example">
-  <Button variant="secondary">Left</Button>
-  <Button variant="secondary">Middle</Button>
-  <Button variant="secondary">Right</Button>
-</ButtonGroup>
 
 
 <div className="buttonWrapper">
-  <Button variant="success" id='add_to_cart_from_single_prod_btn'>Add to cart</Button>
+  <Button variant="success" id='add_to_cart_from_single_prod_btn' onClick={()=>{addToCartFunc(location.state.id)}}>Add to cart</Button>
                 
             </div>
             
@@ -46,4 +79,4 @@ const view_single_product = () => {
   )
 }
 
-export default view_single_product
+export default View_single_product

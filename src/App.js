@@ -8,6 +8,9 @@ import ShoppingCart from './pages/cart';
 import LogIn from './pages/sign_in'
 import SignUp from './pages/sign_up'
 import './static/css/global.css'
+import TestCart from './components/ShoppingCart'
+import PurcahseHistory from "./pages/PurcahseHistory";
+
 function App() {
   const user = false;
 
@@ -16,14 +19,16 @@ function App() {
       <BrowserRouter>
       <Routes>
         <Route path="/customer" element={<CustomerHome/>}/>
-        <Route path="/farmer" element={<FarmerHome/>}/>
-        <Route path="/products" element={<AllProducts/>}/>
-        <Route path="/create_product" element={<CreateProduct/>}/>
-        <Route path="/products/:id" element={<SingleProduct/>}/>
-        <Route path="/cart" element={<ShoppingCart/>}/>
-        <Route path="/" element={ user ? <Navigate  to='/products' /> : <LogIn/>}/>
-        <Route path="/sign_up" element={ user ? <Navigate  to='/products' /> : <SignUp/>}/>
-
+        <Route exact path="/farmer" element={<FarmerHome/>}/>
+        <Route exact path="/products" element={<AllProducts/>}/>
+        <Route exact path="/create_product" element={<CreateProduct/>}/>
+        <Route exact path="/view" element={<SingleProduct/>}/>
+        <Route exact path="/cart" element={<ShoppingCart/>}/>
+        <Route exact path="/purchaseHistry" element={<PurcahseHistory/>}/>
+        <Route exact path="/test_cart" element={<TestCart/>}/>
+        <Route exact path="/" element={ user ? <Navigate  to='/products' /> : <LogIn/>}/>
+        <Route exact path="/sign_up" element={ user ? <Navigate  to='/products' /> : <SignUp/>}/>
+        
 
 
 

@@ -61,14 +61,61 @@ export const updateProduct = async(id, params)=>{
     }
 }
 
+// view existing product
+export const viewSingleProduct = async(id)=>{
+    try{
+        let res = await axios.get(`${host}/item/viewItem/${id}`,{headers: authHeader()})
+        return res.data
+    }catch(e){
+        console.log("error found :", e.message)
+    }
+}
+
 // add to cart
 export const addToCart = async(params) =>{
     console.log("cart items",params)
     try{
-        let response = await axios.post(`${host}/cart/addItem`,params)
+        let response = await axios.post(`${host}/cart/addItem`,params,{headers: authHeader()})
         return response.data
     }catch(e){
         console.log("error found :", e.message)
+    }
+}
+
+// view cart
+export const viewCart = async() => {
+    try{
+    const res = await axios.get(`${host}/cart/view`,{headers: authHeader()});
+    return res.data
+    }
+    catch(e){
+        console.log(e)
+    }
+}
+
+// view cart history
+export const viewCartHistory = async() => {
+    try{
+    const res = await axios.get(`${host}/cart/history`,{headers: authHeader()});
+    return res.data
+    }
+    catch(e){
+        console.log(e)
+    }
+}
+
+
+
+// pay amount
+export const payAmount = async(params) =>{
+    console.log("sdkfkf", params)
+    try{
+        // let res = await axios.post(`${host}/item`,{headers: authHeader()})
+        let res = await axios.post(host+ "/cart/pay",params,{headers: authHeader()})
+
+        return res.data
+    }catch(e){
+        console.log( e.message)
     }
 }
 
